@@ -2,6 +2,7 @@ package cz.utb.fai.oxforddictionary;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +27,13 @@ public class APIDictionaryRequest extends AsyncTask<String, Integer, String>
     String myURl;
     Context context;
     TextView vyhledanaData;
+    TextView priklady;
 
-    public APIDictionaryRequest(Context context, TextView vyhledanaData)
+    public APIDictionaryRequest(Context context, TextView vyhledanaData, TextView priklady)
     {
         this.context = context;
         this.vyhledanaData = vyhledanaData;
+        this.priklady = priklady;
     }
 
     @Override
@@ -70,6 +73,7 @@ public class APIDictionaryRequest extends AsyncTask<String, Integer, String>
         //Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
 
         String definition;
+        String examples;
         try
         {
             JSONObject js = new JSONObject(s);
@@ -91,6 +95,17 @@ public class APIDictionaryRequest extends AsyncTask<String, Integer, String>
 
             vyhledanaData.setText(definition);
             //Toast.makeText(context, definition, Toast.LENGTH_SHORT).show();
+
+            JSONArray ex = d.getJSONArray("examples");
+
+            examples = ex.getString(0);
+
+            int startIndex = examples.indexOf(":");
+            int endIndex = examples.indexOf("}");
+            String cut = examples.substring(startIndex + 2, endIndex - 1);
+            //Log.d("MMMM", "Result is: " + String.valueOf(cut));
+            //Toast.makeText(context, examples, Toast.LENGTH_SHORT).show();
+            priklady.setText(cut);
         }
         catch(JSONException e)
         {

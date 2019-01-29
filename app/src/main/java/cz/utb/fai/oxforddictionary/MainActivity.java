@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity
 {
     String url;
     TextView vyhledanaData;
+    TextView priklady;
     EditText hledaneSlovo;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -19,11 +20,12 @@ public class MainActivity extends AppCompatActivity
 
         hledaneSlovo = findViewById(R.id.hledaneSlovo);
         vyhledanaData = findViewById(R.id.vyhledanaData);
+        priklady = findViewById(R.id.priklady);
     }
 
     public void requestApiButtonClick(View v)
     {
-        APIDictionaryRequest dictionaryRequest = new APIDictionaryRequest(this, vyhledanaData);
+        APIDictionaryRequest dictionaryRequest = new APIDictionaryRequest(this, vyhledanaData, priklady);
         url = dictionaryEntries();
         dictionaryRequest.execute(url);
     }
