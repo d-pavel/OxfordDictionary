@@ -28,12 +28,14 @@ public class APIDictionaryRequest extends AsyncTask<String, Integer, String>
     Context context;
     TextView vyhledanaData;
     TextView priklady;
+    String word;
 
-    public APIDictionaryRequest(Context context, TextView vyhledanaData, TextView priklady)
+    public APIDictionaryRequest(Context context, TextView vyhledanaData, TextView priklady, String word)
     {
         this.context = context;
         this.vyhledanaData = vyhledanaData;
         this.priklady = priklady;
+        this.word = word;
     }
 
     @Override
@@ -106,6 +108,8 @@ public class APIDictionaryRequest extends AsyncTask<String, Integer, String>
             //Log.d("MMMM", "Result is: " + String.valueOf(cut));
             //Toast.makeText(context, examples, Toast.LENGTH_SHORT).show();
             priklady.setText(cut);
+
+            HistorieActivity.content += (word + "\n" + definition + "\n" + cut + "\n\n");
         }
         catch(JSONException e)
         {

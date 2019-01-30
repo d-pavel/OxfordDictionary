@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Oxford Dictionary</string>
+    <string name="app_history">Historie hledání</string>
+    <string name="app_favourites">Oblíbená slova</string>
 </resources>
