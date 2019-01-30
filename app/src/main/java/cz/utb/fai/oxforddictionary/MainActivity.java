@@ -1,13 +1,10 @@
 package cz.utb.fai.oxforddictionary;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
@@ -29,24 +26,16 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    /*public void Pridej()
+    public void showHistoryButtonClick(View v)
     {
-        HistorieActivity hist = new HistorieActivity();
-        hist.VlozText(hledaneSlovo.getText().toString(),vyhledanaData.getText().toString(), priklady.getText().toString());
-    }*/
-
-    public void showHistory(View v)
-    {
-        //Intent historyActivity = new Intent(this, HistorieActivity.class);
         Intent historyIntent = new Intent(this, HistorieActivity.class);
-        historyIntent.putExtra("slovo", hledaneSlovo.getText().toString() );
+        historyIntent.putExtra("slovo", hledaneSlovo.getText().toString());
         historyIntent.putExtra("definice", vyhledanaData.getText().toString());
         historyIntent.putExtra("priklad", priklady.getText().toString());
         startActivity(historyIntent);
-        //startActivity(historyActivity);
     }
 
-    public void showFavourites(View v)
+    public void showFavouritesButtonClick(View v)
     {
         Intent favouritesActivity = new Intent(this, OblibeneActivity.class);
         startActivity(favouritesActivity);
@@ -57,11 +46,18 @@ public class MainActivity extends AppCompatActivity
         APIDictionaryRequest dictionaryRequest = new APIDictionaryRequest(this, vyhledanaData, priklady, hledaneSlovo.getText().toString());
         url = dictionaryEntries();
         dictionaryRequest.execute(url);
+    }
 
-
-
-        //HistorieActivity addWordToHistory = new HistorieActivity();
-        //addWordToHistory.VlozText(hledaneSlovo.getText().toString(),vyhledanaData.getText().toString(), priklady.getText().toString());
+    public void addWordToFavouritesButtonClick(View v)
+    {
+        /*OblibeneActivity oblibene = new OblibeneActivity();
+        Intent oblibeneIntent = new Intent(this, OblibeneActivity.class);
+        oblibeneIntent.putExtra("slovo", hledaneSlovo.getText().toString());
+        oblibeneIntent.putExtra("definice", vyhledanaData.getText().toString());
+        oblibeneIntent.putExtra("priklad", priklady.getText().toString());
+        oblibene.addOrDeleteItem(oblibeneIntent);
+        startActivity(oblibeneIntent);*/
+        OblibeneActivity.addItem();
     }
 
     private String dictionaryEntries()

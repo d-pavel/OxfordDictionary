@@ -15,6 +15,7 @@ import org.w3c.dom.Text;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -110,6 +111,7 @@ public class APIDictionaryRequest extends AsyncTask<String, Integer, String>
             priklady.setText(cut);
 
             HistorieActivity.content += (word + "\n" + definition + "\n" + cut + "\n\n");
+            OblibeneActivity.content = (word + "\n" + definition + "\n" + cut);
         }
         catch(JSONException e)
         {

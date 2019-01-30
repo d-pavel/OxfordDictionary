@@ -28,7 +28,7 @@ public class HistorieActivity extends AppCompatActivity {
         //VlozText();
     }
 
-    public void deleteAll(View v)
+    public void deleteAllFromHistoryButtonClick(View v)
     {
         content = "";
         historie.setText(content);
