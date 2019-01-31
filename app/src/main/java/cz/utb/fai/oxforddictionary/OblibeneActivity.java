@@ -1,9 +1,12 @@
 package cz.utb.fai.oxforddictionary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +17,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class OblibeneActivity extends AppCompatActivity {
 
@@ -41,6 +46,10 @@ public class OblibeneActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        if(listViewFavourites != null) {
+            restoreFavourites(listViewFavourites);
+        }
     }
 
     public static void addItem() {
@@ -48,6 +57,35 @@ public class OblibeneActivity extends AppCompatActivity {
             oblibenePolozky.add(content);
             content = "";
         }
+    }
+
+    public void saveFavourites(View v)
+    {
+        SharedPreferences preferencesFav = getSharedPreferences("favourites", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencesFav.edit();
+        Set<String> set = new HashSet<String>();
+        set.addAll(oblibenePolozky);
+        editor.putStringSet("favourites", set);
+        editor.commit();
+
+        Toast.makeText(this, "Data uložena!", Toast.LENGTH_SHORT).show();
+        //Log.d("OOOO", "Result is: " + String.valueOf(preferencesFav.getString("favourites", set.toString())));
+    }
+
+    public void restoreFavourites(View v)
+    {
+        SharedPreferences preferencesFav = getSharedPreferences("favourites", Context.MODE_PRIVATE);
+
+        Set<String> fav = preferencesFav.getStringSet("favourites", new HashSet<String>());
+        oblibenePolozky.addAll(fav);
+
+        Toast.makeText(this, "Data obnovena!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveFavourites(listViewFavourites);
     }
 
     /*protected void addOrDeleteItem(final Intent intent)//(String slovo, String definice, String veta)
