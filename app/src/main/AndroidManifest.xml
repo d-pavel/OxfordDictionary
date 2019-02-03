@@ -20,9 +20,11 @@
         </activity>
         <activity
             android:name=".HistorieActivity"
-            android:label="@string/app_history" />
+            android:label="@string/app_historyOfSearch" />
         <activity android:name=".OblibeneActivity"
             android:label="@string/app_favourites"></activity>
+        <service android:name=".ClosingService"
+            android:stopWithTask="false"/>
     </application>
 
 </manifest>

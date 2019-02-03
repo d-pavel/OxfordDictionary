@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">Oxford Dictionary</string>
-    <string name="app_history">Historie hledání</string>
-    <string name="app_favourites">Oblíbená slova</string>
+
+    <string name="app_definition">Definice:</string>
+    <string name="app_search">Vyhledat</string>
+    <string name="app_examples">Příklady:</string>
+    <string name="app_searchedWord">Sem napište hledané slovo...</string>
+    <string name="app_data">...</string>
+    <string name="app_lSearchedWord">Hledané slovo (EN):</string>
+
+    <string name="app_historyOfSearch">Historie hledání</string>
+
+    <string name="app_deteleAll">Smazat vše</string>
+
+    <string name="app_favouritesWords">Oblíbená slova</string>
+    <string name="app_toFavourites">Do oblíbených</string>
+    <string name="app_favourites">Oblíbené</string>
 </resources>

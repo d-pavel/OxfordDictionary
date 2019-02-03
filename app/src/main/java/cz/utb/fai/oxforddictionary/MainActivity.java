@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent stickyService = new Intent(this, ClosingService.class);
+        startService(stickyService);
+
         hledaneSlovo = findViewById(R.id.hledaneSlovo);
         vyhledanaData = findViewById(R.id.vyhledanaData);
         priklady = findViewById(R.id.priklady);
@@ -34,9 +37,6 @@ public class MainActivity extends AppCompatActivity
     public void showHistoryButtonClick(View v)
     {
         Intent historyIntent = new Intent(this, HistorieActivity.class);
-        historyIntent.putExtra("slovo", hledaneSlovo.getText().toString());
-        historyIntent.putExtra("definice", vyhledanaData.getText().toString());
-        historyIntent.putExtra("priklad", priklady.getText().toString());
         startActivity(historyIntent);
     }
 
@@ -51,19 +51,10 @@ public class MainActivity extends AppCompatActivity
         APIDictionaryRequest dictionaryRequest = new APIDictionaryRequest(this, vyhledanaData, priklady, hledaneSlovo.getText().toString());
         url = dictionaryEntries();
         dictionaryRequest.execute(url);
-        //HistorieActivity hist = new HistorieActivity();
-        //hist.saveHistory(hist.findViewById(R.id.historieHledani));
     }
 
     public void addWordToFavouritesButtonClick(View v)
     {
-        /*OblibeneActivity oblibene = new OblibeneActivity();
-        Intent oblibeneIntent = new Intent(this, OblibeneActivity.class);
-        oblibeneIntent.putExtra("slovo", hledaneSlovo.getText().toString());
-        oblibeneIntent.putExtra("definice", vyhledanaData.getText().toString());
-        oblibeneIntent.putExtra("priklad", priklady.getText().toString());
-        oblibene.addOrDeleteItem(oblibeneIntent);
-        startActivity(oblibeneIntent);*/
         OblibeneActivity.addItem();
     }
 

@@ -2,20 +2,15 @@ package cz.utb.fai.oxforddictionary;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -110,7 +105,7 @@ public class APIDictionaryRequest extends AsyncTask<String, Integer, String>
             //Toast.makeText(context, examples, Toast.LENGTH_SHORT).show();
             priklady.setText(cut);
 
-            HistorieActivity.content += (word + "\n" + definition + "\n" + cut + "\n\n");
+            HistorieActivity.historyItems.add(word + "\n" + definition + "\n" + cut);
             OblibeneActivity.content = (word + "\n" + definition + "\n" + cut);
         }
         catch(JSONException e)

@@ -22,12 +22,11 @@ import java.util.Set;
 
 public class OblibeneActivity extends AppCompatActivity {
 
+    private static boolean loaded = false;
     public static String content = "";
     public static ArrayList<String> oblibenePolozky = new ArrayList<>();
     ArrayAdapter<String> adapter;
     ListView listViewFavourites;
-    //Button pridatDoOblibenych;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +46,9 @@ public class OblibeneActivity extends AppCompatActivity {
             }
         });
 
-        if(listViewFavourites != null) {
+        if(listViewFavourites != null && loaded == false) {
             restoreFavourites(listViewFavourites);
+            loaded = true;
         }
     }
 
@@ -59,73 +59,9 @@ public class OblibeneActivity extends AppCompatActivity {
         }
     }
 
-    public void saveFavourites(View v)
-    {
+    public void restoreFavourites(View v) {
         SharedPreferences preferencesFav = getSharedPreferences("favourites", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferencesFav.edit();
-        Set<String> set = new HashSet<String>();
-        set.addAll(oblibenePolozky);
-        editor.putStringSet("favourites", set);
-        editor.commit();
-
-        Toast.makeText(this, "Data uložena!", Toast.LENGTH_SHORT).show();
-        //Log.d("OOOO", "Result is: " + String.valueOf(preferencesFav.getString("favourites", set.toString())));
-    }
-
-    public void restoreFavourites(View v)
-    {
-        SharedPreferences preferencesFav = getSharedPreferences("favourites", Context.MODE_PRIVATE);
-
         Set<String> fav = preferencesFav.getStringSet("favourites", new HashSet<String>());
         oblibenePolozky.addAll(fav);
-
-        Toast.makeText(this, "Data obnovena!", Toast.LENGTH_SHORT).show();
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        saveFavourites(listViewFavourites);
-    }
-
-    /*protected void addOrDeleteItem(final Intent intent)//(String slovo, String definice, String veta)
-    {
-        listViewFavourites = (ListView) findViewById(R.id.listViewFavourites);
-        //final EditText slovo = (EditText) findViewById(R.id.hledaneSlovo);
-        pridatDoOblibenych = (Button) findViewById(R.id.button_AddToFavourites);
-
-        oblibenePolozky = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(OblibeneActivity.this, android.R.layout.simple_list_item_multiple_choice, oblibenePolozky);
-
-        View.OnClickListener addListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                oblibenePolozky.add(intent.getData().toString());
-                adapter.notifyDataSetChanged();
-            }
-        };
-
-        listViewFavourites.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                SparseBooleanArray positionChecker = listViewFavourites.getCheckedItemPositions();
-                int count = listViewFavourites.getCount();
-
-                for(int item = count - 1; item >= 0; item--)
-                {
-                    adapter.remove(oblibenePolozky.get(item));
-                    Toast.makeText(OblibeneActivity.this, "Slovo bylo smazáno.", Toast.LENGTH_SHORT).show();
-                }
-
-                positionChecker.clear();
-                adapter.notifyDataSetChanged();
-
-                return false;
-            }
-        });
-
-        pridatDoOblibenych.setOnClickListener(addListener);
-
-        listViewFavourites.setAdapter(adapter);
-    }*/
 }
